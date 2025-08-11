@@ -50,11 +50,16 @@ public class Application {
             String output = client.models.generateContent   ("gemini-2.0-flash",
 //                    input,
                             List.of(
-                                    Content.builder().parts(
-                                            Part.builder().text("이전 대화 : " + repository.getRecords().toString()).build()
+                                    Content.builder()
+                                            .role("user")
+                                            .parts(
+                                            Part.builder()
+                                                    .text("이전 대화 : " + repository.getRecords().toString()).build()
                                     ).build(
                                     ),
-                                    Content.builder().parts(
+                                    Content.builder()
+                                            .role("user")
+                                            .parts(
                                             Part.builder().text(input).build()
                                     ).build(
                                     )),
