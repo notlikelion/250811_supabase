@@ -79,8 +79,9 @@ public class RecordRepository {
         // Response
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            String body = response.body(); // String
-            System.out.println(body);
+//            String body = response.body(); // String
+//            System.out.println(body);
+            System.out.println(response.statusCode()); // 201
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
