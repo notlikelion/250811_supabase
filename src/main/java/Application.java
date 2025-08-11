@@ -6,6 +6,7 @@ import db.RecordAddDTO;
 import db.RecordRepository;
 import io.github.cdimascio.dotenv.Dotenv;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Application {
@@ -47,7 +48,17 @@ public class Application {
                         .text("100자 이내에 한글로 작성된 평문"))
                     .build();
             String output = client.models.generateContent   ("gemini-2.0-flash",
-                    input, GenerateContentConfig.builder()
+//                    input,
+                            List.of(
+                                    Content.builder().parts(
+                                            Part.builder().text("이전 대화 : " + repository.getRecords().toString()).build()
+                                    ).build(
+                                    ),
+                                    Content.builder().parts(
+                                            Part.builder().text(input).build()
+                                    ).build(
+                                    )),
+                            GenerateContentConfig.builder()
                             .systemInstruction(systemInstruction).build())
                     .text().trim(); // trim -> 공백, 줄바꿈 삭제 (문자열 앞뒤)
             System.out.println("답변 : " + output);
